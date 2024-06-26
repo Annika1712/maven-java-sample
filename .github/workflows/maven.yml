@@ -30,7 +30,7 @@ jobs:
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
-        args: -Dsonar.projectKey=annika-maven-example
+        args: -Dsonar.projectKey=annika-maven-example -Dsonar.projectName='annika-maven-example'
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
