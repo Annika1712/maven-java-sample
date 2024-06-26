@@ -27,6 +27,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Build maven
+      run: mvn -B package --file pom.xml
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
