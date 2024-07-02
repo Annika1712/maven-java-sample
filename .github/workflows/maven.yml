@@ -51,7 +51,7 @@ jobs:
   
   deploy:
     name: Deploy
-    runs-on: annika-ec2
+    runs-on: annika-runner
     needs: build
 
     steps:
