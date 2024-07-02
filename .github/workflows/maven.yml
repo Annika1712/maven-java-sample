@@ -27,13 +27,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        
     - name: Build maven
       run: mvn -B package --file pom.xml
+
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
-        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=.
+        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=C:\Program Files\Java\jdk-17\bin
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
+    
+    - name: Publish Artifacts    
+      uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: staging
       
