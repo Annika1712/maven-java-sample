@@ -75,9 +75,9 @@ jobs:
         #Install java on the ubuntu
         first_ssh: sudo apt update && sudo apt install default-jre -y
         #Copy artifact to remote host
-        scp: Package => .
+        scp: Package => ./
         # Start application
-        last_ssh: java -jar *.jar && exit
+        last_ssh: java -jar Package/*.jar && exit
 
   
 
