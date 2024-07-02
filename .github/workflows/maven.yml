@@ -42,12 +42,28 @@ jobs:
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
-    
+
     - name: Publish Artifacts    
       uses: actions/upload-artifact@v4
       with:
         name: Package
         path: staging
+  
+  deploy:
+    name: Deploy
+    runs-on: annika-ec2
+    needs: build
+
+    steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v3
+      with:
+        name: Package
+    
+    - name: Start application
+      run: java -jar target/*.jar
+    
+
 
 
 
