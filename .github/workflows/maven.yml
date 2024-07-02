@@ -67,7 +67,7 @@ jobs:
       uses: nogsantos/ssh-scp-deploy@v1.3.0
       with:
         # Source dir to deploy
-        src: Package
+        src: Package.tar
         # SSH address
         host: ${{ secrets.AWS_HOST_IP }}
         # Remote dir path
