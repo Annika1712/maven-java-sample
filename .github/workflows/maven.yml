@@ -63,7 +63,7 @@ jobs:
         # Hostname or IP to add to the known hosts file
         ssh-host: ${{ secrets.AWS_HOST_IP }}
 
-    - name:
+    - name: SSH SCP
       uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
         # ssh remote host
