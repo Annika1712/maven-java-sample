@@ -94,7 +94,7 @@ jobs:
       uses: tiyee/action-ssh@v1.0.1
       with:
         # Command to execute on the remote server.
-        command: java -jar *.jar
+        command: nohup java -jar *.jar &
         # Hostname or IP address of the server.
         host: ${{ secrets.AWS_HOST_IP }}
         # Username for authentication.
