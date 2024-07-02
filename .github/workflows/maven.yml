@@ -50,6 +50,14 @@ jobs:
     needs: build
 
     steps:
+    - name: setup known host SSH
+      uses: kielabokkie/ssh-key-and-known-hosts-action@v1.4.1
+      with:
+        # Private key required to access the host
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY}}
+        # Hostname or IP to add to the known hosts file
+        ssh-host: ${{ secrets.AWS_HOST_IP }}
+
     - name: SSH
       run: ssh -i ${{ secrets.SSH_PRIVATE_KEY}} ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_HOST_IP }}
 
@@ -58,8 +66,10 @@ jobs:
       with:
         name: Package
 
+    
     - name: Start application
       run: java -jar target/*.jar
+
 
 
 
