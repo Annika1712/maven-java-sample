@@ -16,6 +16,7 @@ on:
 
 jobs:
   build:
+    name: Build
 
     runs-on: ubuntu-latest
 
@@ -31,6 +32,9 @@ jobs:
     - name: Build maven
       run: mvn -B package --file pom.xml
 
+    - name: Copy artifact to staging directory
+      run: mkdir staging && cp target/*.jar staging
+
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
@@ -44,5 +48,7 @@ jobs:
       with:
         name: Package
         path: staging
-  
+
+
+
       
