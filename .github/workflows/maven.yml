@@ -34,7 +34,7 @@ jobs:
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
-        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=C:\Program Files\Java\jdk-17\bin
+        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=.
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
@@ -44,4 +44,5 @@ jobs:
       with:
         name: Package
         path: staging
+  
       
