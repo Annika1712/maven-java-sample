@@ -50,6 +50,11 @@ jobs:
     needs: build
 
     steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: Package
+
     - name: setup known host SSH
       uses: kielabokkie/ssh-key-and-known-hosts-action@v1.4.1
       with:
@@ -58,17 +63,20 @@ jobs:
         # Hostname or IP to add to the known hosts file
         ssh-host: ${{ secrets.AWS_HOST_IP }}
 
-    - name: SSH
-      run: ssh -i ${{ secrets.SSH_PRIVATE_KEY}} ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_HOST_IP }}
-
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v4
+    - name:
+      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
-        name: Package
+        # ssh remote host
+        host: ${{ secrets.AWS_HOST_IP }}
+        # ssh remote user
+        user: ${{ secrets.AWS_HOST_USER }}
+        # content of ssh private key. ex raw content of ~/.ssh/id_rsa
+        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        scp: Package .
+        # Start application
+        last_ssh: java -jar target/*.jar
 
-    
-    - name: Start application
-      run: java -jar target/*.jar
+  
 
 
 
