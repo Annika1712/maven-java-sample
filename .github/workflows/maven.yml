@@ -76,7 +76,7 @@ jobs:
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
     - name: SCP
-      uses: moonpathbg/scp_uploader@latest
+      uses: appleboy/scp-action@v0.1.7
       with:
         # remote host
         host: ${{ secrets.AWS_HOST_IP }}
@@ -87,7 +87,7 @@ jobs:
         # source files path
         source: Package
         # destination path
-        target: ./
+        target: /home/ubuntu
 
     - name: Start Application
       uses: tiyee/action-ssh@v1.0.1
