@@ -73,7 +73,7 @@ jobs:
         # content of ssh private key. ex raw content of ~/.ssh/id_rsa
         key: ${{ secrets.SSH_PRIVATE_KEY}}
         #Install java on the ubuntu
-        first_ssh: sudo apt install default-jre -y
+        first_ssh: sudo apt update && sudo apt install default-jre -y
         #Copy artifact to remote host
         scp: Package => .
         # Start application
