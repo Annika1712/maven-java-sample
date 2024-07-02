@@ -35,10 +35,8 @@ jobs:
     - name: Copy artifact to staging directory
       run: mkdir staging && cp target/*.jar staging
 
-    - name: Official SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v2.2.0
-      with:
-        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=/opt/java/openjdk/bin
+    - name: SonarQube Scan
+      run: mvn clean verify sonar:sonar -Dsonar.projectKey=annika-maven-example
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
