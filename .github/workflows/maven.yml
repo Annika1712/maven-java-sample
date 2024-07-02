@@ -64,18 +64,19 @@ jobs:
         ssh-host: ${{ secrets.AWS_HOST_IP }}
 
     - name: SCP
-      uses: nogsantos/ssh-scp-deploy@v1.3.0
+      uses: appleboy/scp-action@v0.1.7
       with:
         # Source dir to deploy
-        src: Package
+        source: Package
         # SSH address
         host: ${{ secrets.AWS_HOST_IP }}
         # Remote dir path
-        remote: ./
+        target: ./
         # SSH User name
-        user: ${{ secrets.AWS_HOST_USER }}
+        username: ${{ secrets.AWS_HOST_USER }}
         # Private key
         key: ${{ secrets.SSH_PRIVATE_KEY}}
+        debug: true
     
     - name: Install Java
       uses: tiyee/action-ssh@v1.0.1
