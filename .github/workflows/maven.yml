@@ -38,7 +38,7 @@ jobs:
     - name: Official SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v2.2.0
       with:
-        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=.
+        args: -Dsonar.projectKey=annika-maven-example -Dsonar.java.binaries=/opt/java/openjdk/bin
       env:
         SONAR_TOKEN: ${{  secrets.SONAR_TOKEN  }}
         SONAR_HOST_URL: ${{  secrets.SONAR_HOST_URL  }}
@@ -86,7 +86,7 @@ jobs:
         # File  string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
         privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
-        
+
 
     
 
