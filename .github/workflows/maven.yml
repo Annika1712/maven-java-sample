@@ -63,21 +63,43 @@ jobs:
         # Hostname or IP to add to the known hosts file
         ssh-host: ${{ secrets.AWS_HOST_IP }}
 
-    - name:
-      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+    - name: Install Java
+      uses: tiyee/action-ssh@v1.0.1
       with:
-        # ssh remote host
+        # Command to execute on the remote server.
+        command: sudo apt update && sudo apt install default-jre -y
+        # Hostname or IP address of the server.
         host: ${{ secrets.AWS_HOST_IP }}
-        # ssh remote user
-        user: ${{ secrets.AWS_HOST_USER }}
-        # content of ssh private key. ex raw content of ~/.ssh/id_rsa
+        # Username for authentication.
+        username: ${{ secrets.AWS_HOST_USER }}
+        # File string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
+
+    - name: SCP
+      uses: moonpathbg/scp_uploader@latest
+      with:
+        # remote host
+        host: ${{ secrets.AWS_HOST_IP }}
+        # remote user
+        username: ${{ secrets.AWS_HOST_USER }}
+        # ssh private key (~/.ssh/id_rsa)
         key: ${{ secrets.SSH_PRIVATE_KEY}}
-        #Install java on the ubuntu
-        first_ssh: sudo apt update && sudo apt install default-jre -y
-        #Copy artifact to remote host
-        scp: Package => /home/ubuntu
-        # Start application
-        last_ssh: java -jar Package/*.jar && exit
+        # source files path
+        source: Package
+        # destination path
+        target: ./
+
+    - name: Start Application
+      uses: tiyee/action-ssh@v1.0.1
+      with:
+        # Command to execute on the remote server.
+        command: java -jar Package/*.jar
+        # Hostname or IP address of the server.
+        host: ${{ secrets.AWS_HOST_IP }}
+        # Username for authentication.
+        username: ${{ secrets.AWS_HOST_USER }}
+        # File string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY}}
 
   
 
