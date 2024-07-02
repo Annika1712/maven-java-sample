@@ -65,7 +65,7 @@ jobs:
         # ssh private key (~/.ssh/id_rsa)
         key: ${{ secrets.SSH_PRIVATE_KEY}}
         # source files path
-        source: Package
+        source: Package.zip
     
     - name: Start application
       uses: tiyee/action-ssh@v1.0.1
