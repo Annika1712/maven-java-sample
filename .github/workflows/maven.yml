@@ -67,7 +67,7 @@ jobs:
       uses: appleboy/scp-action@v0.1.7
       with:
         # Source dir to deploy
-        source: Package
+        source: ./Package
         # SSH address
         host: ${{ secrets.AWS_HOST_IP }}
         # Remote dir path
